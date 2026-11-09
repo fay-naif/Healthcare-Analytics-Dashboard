@@ -1,0 +1,113 @@
+{
+  "name": "Emerald & Blush – Fay Healthcare",
+  "dataColors": [
+    "#0E4A3A",
+    "#B85C70",
+    "#BF9B55",
+    "#9DC4AF",
+    "#E7B4B4",
+    "#1F6B53",
+    "#EAD9B4",
+    "#7E9E8C",
+    "#D8A39D",
+    "#6E7C75"
+  ],
+  "background": "#F6F2EC",
+  "foreground": "#1A2A24",
+  "tableAccent": "#0E4A3A",
+  "good": "#1F6B53",
+  "neutral": "#BF9B55",
+  "bad": "#B85C70",
+  "maximum": "#0E4A3A",
+  "center": "#EAD9B4",
+  "minimum": "#B85C70",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0E4A3A",
+      "fontSize": 14
+    },
+    "callout": {
+      "fontFace": "Segoe UI Bold",
+      "color": "#0E4A3A",
+      "fontSize": 32
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#6E7C75",
+      "fontSize": 10
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#1A2A24",
+      "fontSize": 10
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFDF9"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E7DFD4"
+              }
+            },
+            "radius": 14
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#0E4A3A"
+              }
+            },
+            "fontSize": 14
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F6F2EC"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F6F2EC"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

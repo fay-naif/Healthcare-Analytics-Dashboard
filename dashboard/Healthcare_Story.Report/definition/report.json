@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": "5.61",
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Emerald_Blush46172093551820.json",
+      "reportVersionAtImport": "5.61",
+      "type": "RegisteredResources"
+    }
+  },
+  "layoutOptimization": "None",
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Emerald_Blush46172093551820.json",
+          "path": "Emerald_Blush46172093551820.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "bg_cover02359142336427.jpg",
+          "path": "bg_cover02359142336427.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "bg_money17493998787544.png",
+          "path": "bg_money17493998787544.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_time48264973810479.png",
+          "path": "bg_time48264973810479.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "useEnhancedTooltips": true
+  }
+}

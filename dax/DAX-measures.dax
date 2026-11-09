@@ -1,0 +1,293 @@
+// ===== Healthcare story · DAX measures (table name: Visits) =====
+// Visits = one row per visit, built in Power Query by joining the 6 sheets:
+//   Visits + Billing (Visit_ID) + Patients (Patient_ID) + Services (Service_ID) + Facilities (Facility_ID).
+// Extra columns added in Power Query: Year, Uncollected_SAR, Wait_Band (+order), Age_Group (+order).
+// A Date table (calculated, related to Visits[Visit_Date]) is included for trends.
+
+
+// ---- Core
+Visits =
+    COUNTROWS ( Visits )
+    // format: #,0
+Patients =
+    DISTINCTCOUNT ( Visits[Patient_ID] )
+    // format: #,0
+Hospitals =
+    DISTINCTCOUNT ( Visits[Facility_Name] )
+    // format: 0
+Doctors =
+    DISTINCTCOUNT ( Visits[Provider_ID] )
+    // format: 0
+
+// ---- Money
+Total Billed =
+    SUM ( Visits[Charge_SAR] )
+    // format: #,0
+Total Collected =
+    SUM ( Visits[Collected_SAR] )
+    // format: #,0
+Uncollected =
+    [Total Billed] - [Total Collected]
+    // format: #,0
+Collection Rate =
+    DIVIDE ( [Total Collected], [Total Billed] )
+    // format: 0.0%
+Uncollected % =
+    DIVIDE ( [Uncollected], [Total Billed] )
+    // format: 0.0%
+Avg Bill =
+    AVERAGE ( Visits[Charge_SAR] )
+    // format: #,0
+Visit Share =
+    DIVIDE ( [Visits], CALCULATE ( [Visits], REMOVEFILTERS ( Visits[Service_Name] ) ) )
+    // format: 0.0%
+Revenue Share =
+    DIVIDE ( [Total Billed], CALCULATE ( [Total Billed], REMOVEFILTERS ( Visits[Service_Name] ) ) )
+    // format: 0.0%
+Gap Share =
+    DIVIDE ( [Uncollected], CALCULATE ( [Uncollected], REMOVEFILTERS ( Visits[Service_Name] ) ) )
+    // format: 0.0%
+Procedure Revenue Share =
+    CALCULATE ( [Revenue Share], Visits[Service_Name] = "Procedure" )
+    // format: 0.0%
+Bills Paid in Full =
+    COUNTROWS ( FILTER ( Visits, Visits[Collected_SAR] >= Visits[Charge_SAR] ) ) + 0
+    // format: #,0
+% Bills Under 60% Collected =
+    DIVIDE ( COUNTROWS ( FILTER ( Visits, Visits[Collected_SAR] < 0.6 * Visits[Charge_SAR] ) ), [Visits] )
+    // format: 0.0%
+
+// ---- Time
+Avg Wait (min) =
+    AVERAGE ( Visits[Wait_Minutes] )
+    // format: 0.0
+% Wait 90+ min =
+    DIVIDE ( CALCULATE ( [Visits], Visits[Wait_Minutes] > 90 ), [Visits] )
+    // format: 0.0%
+% Seen in 30 min =
+    DIVIDE ( CALCULATE ( [Visits], Visits[Wait_Minutes] <= 30 ), [Visits] )
+    // format: 0.0%
+ER Seen in 30 min =
+    CALCULATE ( [% Seen in 30 min], Visits[Department] = "Emergency" )
+    // format: 0.0%
+ER Avg Wait (min) =
+    CALCULATE ( [Avg Wait (min)], Visits[Department] = "Emergency" )
+    // format: 0.0
+Wait - Emergency =
+    IF ( SELECTEDVALUE ( Visits[Department] ) = "Emergency", [Avg Wait (min)] )
+    // format: 0.0
+Wait - Other Departments =
+    IF ( SELECTEDVALUE ( Visits[Department] ) <> "Emergency", [Avg Wait (min)] )
+    // format: 0.0
+ER Target (30 min) =
+    30
+    // format: 0
+Admissions =
+    CALCULATE ( [Visits], Visits[Outcome] = "Admitted" )
+    // format: #,0
+Referrals =
+    CALCULATE ( [Visits], Visits[Outcome] = "Referred" )
+    // format: #,0
+Admission Rate =
+    DIVIDE ( [Admissions], [Visits] )
+    // format: 0.0%
+Referral Rate =
+    DIVIDE ( [Referrals], [Visits] )
+    // format: 0.0%
+
+// ---- Capacity
+Total Beds =
+    SUMX ( VALUES ( Visits[Facility_Name] ), CALCULATE ( MAX ( Visits[Beds] ) ) )
+    // format: #,0
+Admissions per Bed =
+    DIVIDE ( [Admissions], [Total Beds] )
+    // format: 0.0
+Visits per Bed =
+    DIVIDE ( [Visits], [Total Beds] )
+    // format: 0.0
+Bed Load Gap (x) =
+    VAR t = ADDCOLUMNS ( ALL ( Visits[Facility_Name] ), "apb", [Admissions per Bed] )
+    RETURN DIVIDE ( MAXX ( t, [apb] ), MINX ( t, [apb] ) )
+    // format: 0.0
+
+// ---- Time Intelligence
+Billed YoY % =
+    VAR cy = CALCULATE ( [Total Billed], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Total Billed], Visits[Year] = 2024 )
+    RETURN DIVIDE ( cy - py, py )
+    // format: 0.0%
+
+// ---- KPI labels
+Billed YoY Label =
+    VAR d = [Billed YoY %]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" ) & "  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Collected YoY % =
+    VAR cy = CALCULATE ( [Total Collected], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Total Collected], Visits[Year] = 2024 )
+    RETURN DIVIDE ( cy - py, py )
+    // format: 0.0%
+
+// ---- KPI labels
+Collected YoY Label =
+    VAR d = [Collected YoY %]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" ) & "  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Collection Rate YoY pts =
+    VAR cy = CALCULATE ( [Collection Rate], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Collection Rate], Visits[Year] = 2024 )
+    RETURN ( cy - py ) * 100
+    // format: 0.0
+
+// ---- KPI labels
+Collection Rate YoY Label =
+    VAR d = [Collection Rate YoY pts]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Uncollected YoY % =
+    VAR cy = CALCULATE ( [Uncollected], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Uncollected], Visits[Year] = 2024 )
+    RETURN DIVIDE ( cy - py, py )
+    // format: 0.0%
+
+// ---- KPI labels
+Uncollected YoY Label =
+    VAR d = [Uncollected YoY %]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" ) & "  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Avg Bill YoY % =
+    VAR cy = CALCULATE ( [Avg Bill], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Avg Bill], Visits[Year] = 2024 )
+    RETURN DIVIDE ( cy - py, py )
+    // format: 0.0%
+
+// ---- KPI labels
+Avg Bill YoY Label =
+    VAR d = [Avg Bill YoY %]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" ) & "  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Avg Wait YoY % =
+    VAR cy = CALCULATE ( [Avg Wait (min)], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Avg Wait (min)], Visits[Year] = 2024 )
+    RETURN DIVIDE ( cy - py, py )
+    // format: 0.0%
+
+// ---- KPI labels
+Avg Wait YoY Label =
+    VAR d = [Avg Wait YoY %]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" ) & "  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Wait 90 YoY pts =
+    VAR cy = CALCULATE ( [% Wait 90+ min], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [% Wait 90+ min], Visits[Year] = 2024 )
+    RETURN ( cy - py ) * 100
+    // format: 0.0
+
+// ---- KPI labels
+Wait 90 YoY Label =
+    VAR d = [Wait 90 YoY pts]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+ER Seen 30 YoY pts =
+    VAR cy = CALCULATE ( [ER Seen in 30 min], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [ER Seen in 30 min], Visits[Year] = 2024 )
+    RETURN ( cy - py ) * 100
+    // format: 0.0
+
+// ---- KPI labels
+ER Seen 30 YoY Label =
+    VAR d = [ER Seen 30 YoY pts]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Admission Rate YoY pts =
+    VAR cy = CALCULATE ( [Admission Rate], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Admission Rate], Visits[Year] = 2024 )
+    RETURN ( cy - py ) * 100
+    // format: 0.0
+
+// ---- KPI labels
+Admission Rate YoY Label =
+    VAR d = [Admission Rate YoY pts]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts  ·  2025 vs 2024"
+
+// ---- Time Intelligence
+Referral Rate YoY pts =
+    VAR cy = CALCULATE ( [Referral Rate], Visits[Year] = 2025 )
+    VAR py = CALCULATE ( [Referral Rate], Visits[Year] = 2024 )
+    RETURN ( cy - py ) * 100
+    // format: 0.0
+
+// ---- KPI labels
+Referral Rate YoY Label =
+    VAR d = [Referral Rate YoY pts]
+    RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts  ·  2025 vs 2024"
+
+// ---- Time
+% of Visits =
+    DIVIDE ( [Visits], CALCULATE ( [Visits], REMOVEFILTERS ( Visits[Wait_Band], Visits[Wait_Band_Order] ) ) )
+    // format: 0.0%
+
+// ===== Numbers you should see (no filters) =====
+Visits 30,000 · Patients 7,835 (of 8,000 on file) · Hospitals 8 · Doctors 120
+Total Billed SAR 18,140,940 · Collected SAR 13,623,421 · Uncollected SAR 4,517,519 (24.9%) · Collection Rate 75.1% · Avg Bill SAR 605
+Share of visits → share of revenue: Procedure 20.2% → 48.0% · Emergency 19.9% → 24.6% · Imaging 19.9% → 15.9% · Consultation 20.0% → 6.8% · Laboratory 20.1% → 4.6%
+Uncollected by service (SAR): Procedure 2.14M (47%) · Emergency 1.14M · Imaging 0.72M · Consultation 0.31M · Laboratory 0.21M
+Collection Rate: Insured 75.2% · Self-pay 75.0% · Bills Paid in Full 0 · Bills under 60% collected 20.1%
+Avg Wait 77.9 min · Wait 90+ 41.4% · Seen in 30 min 17.6% · ER Avg Wait 78.3 min · ER Seen in 30 min 17.8%
+Admission Rate 33.4% · Referral Rate 33.3% (9,997 visits) · Admissions per Bed: Buraidah 6.5 … Hail 3.0 · Bed Load Gap 2.2×
+YoY 2025 vs 2024: Billed +1.8% · Collected +1.6% · Collection Rate −0.2 pts · Uncollected +2.5% · Avg Bill +1.5% · Avg Wait −0.7% · Wait 90+ −1.1 pts · ER seen in 30 min +0.1 pts · Admission Rate +0.8 pts · Referral Rate −0.6 pts
+
+// ===== v2 additions (short KPI chips + insured/self-pay) =====
+Billed YoY Chip =
+VAR d = [Billed YoY %]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" )
+
+Collected YoY Chip =
+VAR d = [Collected YoY %]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" )
+
+Collection Rate YoY Chip =
+VAR d = [Collection Rate YoY pts]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts"
+
+Uncollected YoY Chip =
+VAR d = [Uncollected YoY %]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" )
+
+Avg Bill YoY Chip =
+VAR d = [Avg Bill YoY %]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" )
+
+Avg Wait YoY Chip =
+VAR d = [Avg Wait YoY %]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0%" )
+
+Wait 90 YoY Chip =
+VAR d = [Wait 90 YoY pts]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts"
+
+ER Seen 30 YoY Chip =
+VAR d = [ER Seen 30 YoY pts]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts"
+
+Admission Rate YoY Chip =
+VAR d = [Admission Rate YoY pts]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts"
+
+Referral Rate YoY Chip =
+VAR d = [Referral Rate YoY pts]
+RETURN IF ( d >= 0, "▲ ", "▼ " ) & FORMAT ( ABS ( d ), "0.0" ) & " pts"
+
+Collection Rate - Insured =
+CALCULATE ( [Collection Rate], Visits[Payment_Type] = "Insured" )
+
+Collection Rate - Self-pay =
+CALCULATE ( [Collection Rate], Visits[Payment_Type] = "Self-pay" )

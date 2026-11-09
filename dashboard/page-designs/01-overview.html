@@ -1,0 +1,118 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums tabular-nums}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Inter,sans-serif;color:#17302A;-webkit-font-smoothing:antialiased;
+ background:radial-gradient(900px 600px at 105% -10%,rgba(242,212,215,.55),transparent 60%),radial-gradient(800px 700px at 30% 115%,rgba(220,235,226,.7),transparent 60%),#F5F1EA}
+.serif{font-family:'Cormorant Garamond',serif}.ar{font-family:Tajawal,sans-serif;direction:rtl}
+/* rail */
+.rail{position:absolute;left:0;top:0;width:200px;height:1080px;background:linear-gradient(170deg,#0F4D3C 0%,#0A3529 100%);color:#EAD9B4;padding:32px 20px;box-shadow:8px 0 32px rgba(10,53,41,.18)}
+.rail:after{content:"";position:absolute;inset:0;background:radial-gradient(260px 220px at 0% 100%,rgba(191,155,85,.18),transparent 70%);pointer-events:none}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.brand .mk{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#D9BC7E,#B48A45);display:flex;align-items:center;justify-content:center;color:#0A3529}
+.brand .t{font-family:'Cormorant Garamond';font-size:22px;font-weight:700;line-height:.95;color:#F6EBD3}
+.brand .t i{color:#D9BC7E}
+.rail .sub{font-size:10px;letter-spacing:2.2px;color:rgba(234,217,180,.55);text-transform:uppercase;margin:16px 0 40px 2px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav .it{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font-size:14.5px;font-weight:500;color:rgba(246,235,211,.72)}
+.nav .it .n{margin-left:auto;font-size:11px;opacity:.6}
+.nav .it.on{background:linear-gradient(90deg,rgba(217,188,126,.95),rgba(191,155,85,.9));color:#0A3529;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.nav .it.on .n{opacity:.8}
+.nav .ar2{font-family:Tajawal;font-size:12px;opacity:.7;display:block;margin-top:1px;font-weight:500}
+.rail .foot{position:absolute;left:20px;right:20px;bottom:32px}
+.rail .by{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(234,217,180,.55)}
+.rail .fay{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.12em;color:#D9BC7E;line-height:1;margin:6px 0 12px}
+.rail .note{font-size:10.5px;line-height:1.5;color:rgba(234,217,180,.55);border-top:1px solid rgba(234,217,180,.18);padding-top:12px}
+/* main */
+.hdr{position:absolute;left:240px;right:40px;top:32px;height:88px;display:flex;justify-content:space-between;align-items:flex-end}
+.eb{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:3px;font-weight:700;color:#A8823F;text-transform:uppercase;margin-bottom:8px}
+.eb .pill{background:#0E4A3A;color:#EAD9B4;padding:5px 12px;border-radius:30px;letter-spacing:2px}
+h1{font-family:'Cormorant Garamond';font-weight:700;font-size:50px;line-height:1;color:#0E4A3A;letter-spacing:-.3px}
+h1 em{font-style:italic;color:#B85C70}
+.arh{text-align:right;direction:rtl;font-family:Tajawal}
+.arh .q{font-size:30px;font-weight:800;color:#0E4A3A;line-height:1.25}
+.arh .q span{color:#B85C70}
+.arh .s{font-size:16px;color:#6B7A73;font-weight:500;margin-top:4px}
+.card{position:absolute;background:rgba(255,255,255,.86);border-radius:24px;box-shadow:0 1px 2px rgba(14,74,58,.05),0 12px 32px -8px rgba(14,74,58,.14);border:1px solid rgba(14,74,58,.06)}
+.kpi{padding:20px 22px}
+.kpi .top{display:flex;align-items:center;gap:12px}
+.kpi .icn{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.icn.em{background:#E3EFE8;color:#0E4A3A}.icn.ro{background:#F7E3E6;color:#B85C70}.icn.go{background:#F4EBD8;color:#A8823F}
+.kpi .lb{font-size:13.5px;font-weight:600;color:#45584F;line-height:1.2}
+.kpi .lb .ar{display:block;font-size:13px;color:#8A968F;font-weight:500;text-align:left;direction:rtl;unicode-bidi:plaintext}
+.kpi .val{position:absolute;left:22px;bottom:18px;right:22px;height:52px;display:flex;align-items:flex-end;justify-content:space-between}
+.kpi .num{font-family:'Cormorant Garamond';font-weight:700;font-size:50px;line-height:.9;color:#0E4A3A;letter-spacing:-.5px}
+.kpi .num small{font-family:Inter;font-size:16px;font-weight:600;color:#6B7A73;letter-spacing:0;margin-right:4px}
+.kpi .num small.u{margin-left:4px;margin-right:0}
+.chip{font-size:12px;font-weight:700;padding:5px 9px;border-radius:20px;white-space:nowrap;margin-bottom:4px}
+.chip.g{background:#E3EFE8;color:#1F6B53}.chip.b{background:#F7E3E6;color:#A44A5E}
+.chip i{font-style:normal;font-weight:500;opacity:.75;margin-left:4px}
+.ct{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.ct .icn{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center}
+.ct h3{font-size:18px;font-weight:700;color:#17302A}
+.ct .ar{margin-left:auto;font-size:16px;font-weight:700;color:#A8823F}
+.cs{font-size:13px;color:#7A8881;margin-left:48px}
+.body-bg .data{visibility:hidden !important}
+
+.nav .it{padding:12px 12px;font-size:14px;gap:11px}
+.rail .sub{letter-spacing:1.6px;font-size:9.5px}
+.kpi .chip{position:absolute;right:18px;top:20px;margin:0}
+.kpi .top{padding-right:96px}
+.kpi .val{justify-content:flex-start}
+.kpi .num{font-size:54px}
+.rail .sub{white-space:nowrap}
+.kpi .top{padding-right:0}
+.kpi .chip{top:auto;bottom:20px;right:18px;text-align:right;padding:6px 10px;line-height:1.15}
+.kpi .chip i{display:block;margin:2px 0 0;font-size:10.5px}
+.kpi .num{font-size:50px}.kpi .num small{font-size:15px}
+.nav .it{font-size:13.5px;padding:12px 10px}.nav .it .n{display:none}
+
+body{background:#0A3529;color:#F6EBD3}
+.atr{position:absolute;inset:0;background:url(atrium.jpg) center/cover;filter:grayscale(1) contrast(1.1);opacity:.16;mix-blend-mode:luminosity}
+.lp{position:absolute;inset:0;background:radial-gradient(900px 700px at 0% 0%,rgba(31,107,83,.55),transparent 65%),linear-gradient(90deg,rgba(10,53,41,.2),rgba(10,53,41,0))}
+.ph{position:absolute;right:0;top:0;width:1240px;height:1080px;background:url(photo-C.jpg) 72% center/cover}
+.ph:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,74,58,.10),rgba(14,74,58,.18) 55%,rgba(8,40,31,.85) 100%),linear-gradient(rgba(20,90,70,.18),rgba(20,90,70,.18));mix-blend-mode:multiply}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0A3529 0%,rgba(10,53,41,.92) 14%,rgba(10,53,41,.45) 34%,rgba(10,53,41,0) 56%)}
+.gl{position:absolute;right:-120px;top:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(242,190,196,.22),transparent 65%)}
+.brand2{position:absolute;left:96px;top:64px;display:flex;align-items:center;gap:14px;font-size:12.5px;letter-spacing:3.2px;text-transform:uppercase;color:#D9BC7E;font-weight:600}
+.brand2 .mk{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#E3C78C,#B48A45);display:flex;align-items:center;justify-content:center;color:#0A3529;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.ttl{position:absolute;left:92px;top:140px;font-family:'Cormorant Garamond';font-weight:700;font-size:132px;line-height:.86;letter-spacing:-2px;color:#FBF3E4}
+.ttl i{color:#D9BC7E;font-weight:600}
+.art{position:absolute;left:96px;top:384px;font-family:Tajawal;font-weight:800;font-size:46px;color:#F2D4D7;direction:rtl}
+.rule{position:absolute;left:96px;top:466px;width:96px;height:3px;border-radius:2px;background:linear-gradient(90deg,#D9BC7E,#E7A9B3)}
+.qlab{position:absolute;left:96px;top:496px;font-size:12px;letter-spacing:3px;color:#D9BC7E;font-weight:700;text-transform:uppercase}
+.q{position:absolute;left:96px;top:524px;width:720px;font-family:'Cormorant Garamond';font-size:40px;line-height:1.12;font-weight:500;color:#FBF3E4}
+.q b{color:#D9BC7E;font-style:italic;font-weight:700}.q em{color:#F0B8C1;font-weight:700}
+.qa{position:absolute;left:96px;top:648px;width:760px;font-family:Tajawal;font-size:27px;font-weight:500;color:rgba(246,235,211,.82);direction:rtl;text-align:left;unicode-bidi:plaintext}
+.facts{position:absolute;left:96px;top:716px;display:flex;gap:10px}
+.facts span{font-size:13px;color:rgba(246,235,211,.78);border:1px solid rgba(217,188,126,.35);padding:7px 13px;border-radius:30px;display:flex;align-items:center;gap:8px}
+.facts svg{color:#D9BC7E}
+.sig{position:absolute;left:96px;top:772px;display:flex;align-items:baseline;gap:14px}
+.sig .by{font-size:12px;letter-spacing:3px;color:rgba(234,217,180,.7);text-transform:uppercase}
+.sig .f{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-size:44px;text-transform:uppercase;letter-spacing:.12em;color:#D9BC7E;line-height:1}
+.sig .r{font-size:13px;color:rgba(246,235,211,.6);margin-left:6px}
+.agenda{position:absolute;right:56px;top:56px;display:flex;gap:10px}
+.agenda span{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(10,53,41,.38);border:1px solid rgba(255,255,255,.22);padding:9px 16px;border-radius:30px;font-size:13px;color:#FBF3E4;font-weight:500}
+.agenda b{color:#D9BC7E;margin-right:8px}
+.kp{position:absolute;top:868px;height:156px;width:420px;border-radius:24px;padding:22px 24px;backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);
+ background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.24);box-shadow:0 20px 50px -12px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+.kp .tp{display:flex;align-items:center;gap:12px}
+.kp .ii{width:42px;height:42px;border-radius:13px;background:rgba(217,188,126,.18);border:1px solid rgba(217,188,126,.35);display:flex;align-items:center;justify-content:center;color:#E3C78C}
+.kp .ii.r{background:rgba(240,184,193,.16);border-color:rgba(240,184,193,.4);color:#F0B8C1}
+.kp .l{font-size:13px;font-weight:600;color:rgba(246,235,211,.85)}.kp .l .ar{font-size:13px;color:rgba(246,235,211,.6);display:block;direction:rtl;text-align:left;unicode-bidi:plaintext;font-weight:500}
+.kp .v{position:absolute;left:24px;bottom:22px;height:58px;display:flex;align-items:flex-end}
+.kp .v .n{font-family:'Cormorant Garamond';font-weight:700;font-size:64px;line-height:.85;color:#FBF3E4;letter-spacing:-1px}
+.kp .v .n small{font-family:Inter;font-size:17px;font-weight:600;color:#D9BC7E;letter-spacing:0;margin:0 5px}
+.kp .s{position:absolute;right:22px;bottom:24px;width:172px;text-align:right;font-size:12.5px;line-height:1.35;color:rgba(246,235,211,.7)}
+.kp .s b{color:#F0B8C1}
+.ecg{position:absolute;left:0;top:820px;width:1920px;height:60px;opacity:.55}
+.foot2{position:absolute;right:56px;bottom:20px;font-size:11px;color:rgba(246,235,211,.45);letter-spacing:.5px}
+</style></head><body><div class="lp"></div><div class="ph"></div><div class="gl"></div>
+<div class="brand2"><div class="mk"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></div>A data story &nbsp;·&nbsp; Saudi hospitals &nbsp;·&nbsp; 2023 – 2025</div>
+<div class="agenda"><span><b>01</b>Overview</span><span><b>02</b>The Money</span><span><b>03</b>The Time</span></div>
+<div class="ttl">Healthcare<br><i>Analytics</i></div>
+<div class="art">تحليل بيانات الرعاية الصحية</div><div class="rule"></div>
+<div class="qlab">The question</div>
+<div class="q">Where does a hospital’s <b>money</b> really come from — and where does the patient’s <em>time</em> go?</div>
+<div class="qa">من وين يجي دخل المستشفى فعلاً… ووين يروح وقت المريض؟</div>
+<div class="facts"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>30,000 rows</span><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>36 months</span><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7l10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>6 tables · 30 columns</span><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>120 doctors</span></div>
+<div class="sig"><span class="by">Analysis by</span><span class="f">Fay</span><span class="r">Data Analytics · Power BI</span></div>
+<svg class="ecg" viewBox="0 0 1920 60" preserveAspectRatio="none"><defs><linearGradient id="eg" x1="0" x2="1"><stop offset="0" stop-color="#D9BC7E" stop-opacity="0"/><stop offset=".25" stop-color="#D9BC7E"/><stop offset=".7" stop-color="#F0B8C1"/><stop offset="1" stop-color="#F0B8C1" stop-opacity="0"/></linearGradient></defs><path d="M0 34 H700 l14 -10 l12 10 h30 l10 -28 l14 52 l12 -38 l10 14 h60 l14 -8 l12 8 H1920" fill="none" stroke="url(#eg)" stroke-width="2"/></svg><div class="kp" style="left:96px"><div class="tp"><div class="ii "><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="l">Patient visits<span class="ar">زيارة</span></div></div><div class="v"><div class="n"><span class="data" data-pbi="cov_visits">30,000</span></div></div><div class="s">across <b style="color:#E3C78C">8 hospitals</b><br>8,000 patients</div></div><div class="kp" style="left:540px"><div class="tp"><div class="ii "><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg></div><div class="l">Total billed<span class="ar">إجمالي الفواتير</span></div></div><div class="v"><div class="n"><small style="margin-left:0">SAR</small><span class="data" data-pbi="cov_billed">18.1<small style="margin-left:2px">M</small></span></div></div><div class="s">billed in three years<br>2023 – 2025</div></div><div class="kp" style="left:984px"><div class="tp"><div class="ii r"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div><div class="l">Never collected<span class="ar">ما انحصّل</span></div></div><div class="v"><div class="n"><small style="margin-left:0">SAR</small><span class="data" data-pbi="cov_gap">4.5<small style="margin-left:2px">M</small></span></div></div><div class="s"><b>24.9%</b> of every riyal billed</div></div><div class="kp" style="left:1428px"><div class="tp"><div class="ii r"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="l">Average wait<span class="ar">متوسط الانتظار</span></div></div><div class="v"><div class="n"><span class="data" data-pbi="cov_wait">78</span><small>min</small></div></div><div class="s"><b>41%</b> of visits wait 90+ min</div></div><div class="foot2">Simulated (synthetic) healthcare dataset · for analysis practice</div></body></html>

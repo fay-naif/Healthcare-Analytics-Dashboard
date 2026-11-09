@@ -1,0 +1,129 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums tabular-nums}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Inter,sans-serif;color:#17302A;-webkit-font-smoothing:antialiased;
+ background:radial-gradient(900px 600px at 105% -10%,rgba(242,212,215,.55),transparent 60%),radial-gradient(800px 700px at 30% 115%,rgba(220,235,226,.7),transparent 60%),#F5F1EA}
+.serif{font-family:'Cormorant Garamond',serif}.ar{font-family:Tajawal,sans-serif;direction:rtl}
+/* rail */
+.rail{position:absolute;left:0;top:0;width:200px;height:1080px;background:linear-gradient(170deg,#0F4D3C 0%,#0A3529 100%);color:#EAD9B4;padding:32px 20px;box-shadow:8px 0 32px rgba(10,53,41,.18)}
+.rail:after{content:"";position:absolute;inset:0;background:radial-gradient(260px 220px at 0% 100%,rgba(191,155,85,.18),transparent 70%);pointer-events:none}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.brand .mk{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#D9BC7E,#B48A45);display:flex;align-items:center;justify-content:center;color:#0A3529}
+.brand .t{font-family:'Cormorant Garamond';font-size:22px;font-weight:700;line-height:.95;color:#F6EBD3}
+.brand .t i{color:#D9BC7E}
+.rail .sub{font-size:10px;letter-spacing:2.2px;color:rgba(234,217,180,.55);text-transform:uppercase;margin:16px 0 40px 2px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav .it{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font-size:14.5px;font-weight:500;color:rgba(246,235,211,.72)}
+.nav .it .n{margin-left:auto;font-size:11px;opacity:.6}
+.nav .it.on{background:linear-gradient(90deg,rgba(217,188,126,.95),rgba(191,155,85,.9));color:#0A3529;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.nav .it.on .n{opacity:.8}
+.nav .ar2{font-family:Tajawal;font-size:12px;opacity:.7;display:block;margin-top:1px;font-weight:500}
+.rail .foot{position:absolute;left:20px;right:20px;bottom:32px}
+.rail .by{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(234,217,180,.55)}
+.rail .fay{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-size:30px;text-transform:uppercase;letter-spacing:.12em;color:#D9BC7E;line-height:1;margin:6px 0 12px}
+.rail .note{font-size:10.5px;line-height:1.5;color:rgba(234,217,180,.55);border-top:1px solid rgba(234,217,180,.18);padding-top:12px}
+/* main */
+.hdr{position:absolute;left:240px;right:40px;top:32px;height:88px;display:flex;justify-content:space-between;align-items:flex-end}
+.eb{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:3px;font-weight:700;color:#A8823F;text-transform:uppercase;margin-bottom:8px}
+.eb .pill{background:#0E4A3A;color:#EAD9B4;padding:5px 12px;border-radius:30px;letter-spacing:2px}
+h1{font-family:'Cormorant Garamond';font-weight:700;font-size:50px;line-height:1;color:#0E4A3A;letter-spacing:-.3px}
+h1 em{font-style:italic;color:#B85C70}
+.arh{text-align:right;direction:rtl;font-family:Tajawal}
+.arh .q{font-size:30px;font-weight:800;color:#0E4A3A;line-height:1.25}
+.arh .q span{color:#B85C70}
+.arh .s{font-size:16px;color:#6B7A73;font-weight:500;margin-top:4px}
+.card{position:absolute;background:rgba(255,255,255,.86);border-radius:24px;box-shadow:0 1px 2px rgba(14,74,58,.05),0 12px 32px -8px rgba(14,74,58,.14);border:1px solid rgba(14,74,58,.06)}
+.kpi{padding:20px 22px}
+.kpi .top{display:flex;align-items:center;gap:12px}
+.kpi .icn{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.icn.em{background:#E3EFE8;color:#0E4A3A}.icn.ro{background:#F7E3E6;color:#B85C70}.icn.go{background:#F4EBD8;color:#A8823F}
+.kpi .lb{font-size:13.5px;font-weight:600;color:#45584F;line-height:1.2}
+.kpi .lb .ar{display:block;font-size:13px;color:#8A968F;font-weight:500;text-align:left;direction:rtl;unicode-bidi:plaintext}
+.kpi .val{position:absolute;left:22px;bottom:18px;right:22px;height:52px;display:flex;align-items:flex-end;justify-content:space-between}
+.kpi .num{font-family:'Cormorant Garamond';font-weight:700;font-size:50px;line-height:.9;color:#0E4A3A;letter-spacing:-.5px}
+.kpi .num small{font-family:Inter;font-size:16px;font-weight:600;color:#6B7A73;letter-spacing:0;margin-right:4px}
+.kpi .num small.u{margin-left:4px;margin-right:0}
+.chip{font-size:12px;font-weight:700;padding:5px 9px;border-radius:20px;white-space:nowrap;margin-bottom:4px}
+.chip.g{background:#E3EFE8;color:#1F6B53}.chip.b{background:#F7E3E6;color:#A44A5E}
+.chip i{font-style:normal;font-weight:500;opacity:.75;margin-left:4px}
+.ct{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.ct .icn{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center}
+.ct h3{font-size:18px;font-weight:700;color:#17302A}
+.ct .ar{margin-left:auto;font-size:16px;font-weight:700;color:#A8823F}
+.cs{font-size:13px;color:#7A8881;margin-left:48px}
+.body-bg .data{visibility:hidden !important}
+
+.nav .it{padding:12px 12px;font-size:14px;gap:11px}
+.rail .sub{letter-spacing:1.6px;font-size:9.5px}
+.kpi .chip{position:absolute;right:18px;top:20px;margin:0}
+.kpi .top{padding-right:96px}
+.kpi .val{justify-content:flex-start}
+.kpi .num{font-size:54px}
+.rail .sub{white-space:nowrap}
+.kpi .top{padding-right:0}
+.kpi .chip{top:auto;bottom:20px;right:18px;text-align:right;padding:6px 10px;line-height:1.15}
+.kpi .chip i{display:block;margin:2px 0 0;font-size:10.5px}
+.kpi .num{font-size:50px}.kpi .num small{font-size:15px}
+.nav .it{font-size:13.5px;padding:12px 10px}.nav .it .n{display:none}
+
+.lg{display:flex;gap:24px;margin:8px 0 0 48px;font-size:13px;color:#5B6B64}.lg span{display:flex;align-items:center;gap:8px}.lg i{width:14px;height:14px;border-radius:4px;display:inline-block}.lg i.dash{width:18px;height:0;border-top:2px dashed #BF9B55;border-radius:0}
+.hero .hr{display:flex;align-items:center;height:63px}.hl{width:150px;flex:none}.hl b{display:block;font-size:16px;font-weight:700;color:#17302A}.hl span{font-size:12px;color:#8A968F}
+.hb{position:relative;height:50px;flex:1}.bv{position:absolute;top:4px;height:12px;border-radius:6px;background:#BFD8CA}.br{position:absolute;top:21px;height:24px;border-radius:0 8px 8px 0;background:linear-gradient(90deg,#14523F,#2A7A5E)}
+.br.hi{background:linear-gradient(90deg,#9E4A5D,#C9707F);box-shadow:0 6px 16px -4px rgba(184,92,112,.5)}
+.lv,.lr{position:absolute;font-style:normal;font-size:12px;color:#7A8881;font-weight:600}.lv{top:2px}.lr{top:24px;font-size:15px;font-weight:700;color:#0E4A3A}.lr.hi{color:#B85C70;font-size:17px;top:22px}
+.fair{position:absolute;top:0;bottom:0;border-left:2px dashed #BF9B55;opacity:.8}
+.callout{border-left:1px solid #EDE6DA;padding-left:28px}.big{font-size:132px;font-weight:700;color:#B85C70;line-height:.85;letter-spacing:-3px}.big span{font-size:64px}
+.ctx{font-size:15px;line-height:1.45;color:#45584F;margin-top:10px}.sep{height:1px;background:#EDE6DA;margin:20px 0}.big2{font-size:72px;font-weight:700;color:#BF9B55;line-height:.9}
+.flat{position:absolute;left:28px;right:28px;bottom:20px;height:176px;display:flex;gap:16px;align-items:flex-end}
+.fc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}.fv{font-family:'Cormorant Garamond';font-weight:700;font-size:24px;color:#6B8F7E;margin-bottom:6px}.fv.o{color:#B85C70;font-size:30px}
+.fb{width:56px;border-radius:10px 10px 4px 4px;background:#CFE0D6}.fb.o{background:linear-gradient(#C9707F,#9E4A5D)}
+.fl{font-size:11.5px;line-height:1.3;color:#6B7A73;text-align:center;margin-top:8px;height:30px}
+.donut{border-radius:50%;-webkit-mask:radial-gradient(circle,transparent 56px,#000 57px);mask:radial-gradient(circle,transparent 56px,#000 57px)}
+.dh{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.dh b{font-size:40px;color:#B85C70;line-height:.9}.dh span{font-size:12px;color:#6B7A73;font-weight:600}
+.leg .li{display:flex;align-items:center;gap:10px;height:42px;border-bottom:1px solid #F0EAE0;font-size:14px}.leg .li:last-child{border:0}.leg i{width:12px;height:12px;border-radius:4px}.leg span{flex:1;color:#45584F}.leg b{font-weight:700;color:#17302A}.leg em{font-style:normal;color:#8A968F;width:40px;text-align:right;font-size:13px}
+.rv{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-weight:700;font-size:40px;color:#0E4A3A}
+.rl{position:absolute;top:284px;text-align:center}.rl b{display:block;font-size:15px}.rl span{font-size:12.5px;color:#8A968F}
+.ms{position:absolute;width:168px;height:96px;background:#F8F4EC;border-radius:16px;padding:14px 16px}.ms b{font-size:40px;color:#0E4A3A;line-height:.9;display:block;font-weight:700}.ms span{font-size:12.5px;color:#6B7A73;line-height:1.3;display:block;margin-top:6px}
+</style></head><body><div class="rail"><div class="brand"><div class="mk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></div><div class="t">Healthcare<br><i>Analytics</i></div></div><div class="sub">KSA · 2023 – 2025</div><div class="nav"><div class="it"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><div>Overview<span class="ar2">نظرة عامة</span></div><span class="n">01</span></div><div class="it on"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg><div>Revenue<span class="ar2">الإيراد</span></div><span class="n">02</span></div><div class="it"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div>Patient Flow<span class="ar2">رحلة المريض</span></div><span class="n">03</span></div></div><div class="foot"><div class="by">Analysis by</div><div class="fay">Fay</div><div class="note">Simulated healthcare dataset · 30,000 visits · Jan 2023 – Dec 2025</div></div></div><div class="hdr"><div><div class="eb"><span class="pill">02 · THE MONEY</span>Where revenue really comes from</div>
+<h1>20% of visits bring in <em>48%</em> of the revenue</h1></div>
+<div class="arh"><div class="q">٢٠٪ من الزيارات تجيب <span>نص</span> الإيراد</div><div class="s">وربع كل فاتورة ما ينحصّل</div></div></div><div class="card kpi" style="left:240px;top:144px;width:312px;height:128px"><div class="top"><div class="icn em"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg></div><div class="lb">Total billed <span style="display:inline;color:#A8823F;font-weight:700;font-size:11px;letter-spacing:1px">SAR</span><span class="ar">إجمالي الفواتير</span></div></div>
+<div class="chip g"><span class="data" data-pbi="kpi_billed_yoy">▲ 1.8%</span><i>vs 2024</i></div><div class="val"><div class="num"><span class="data" data-pbi="kpi_billed">18.14M</span></div></div></div><div class="card kpi" style="left:572px;top:144px;width:312px;height:128px"><div class="top"><div class="icn em"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></div><div class="lb">Collected <span style="display:inline;color:#A8823F;font-weight:700;font-size:11px;letter-spacing:1px">SAR</span><span class="ar">المحصّل</span></div></div>
+<div class="chip g"><span class="data" data-pbi="kpi_collected_yoy">▲ 1.6%</span><i>vs 2024</i></div><div class="val"><div class="num"><span class="data" data-pbi="kpi_collected">13.62M</span></div></div></div><div class="card kpi" style="left:904px;top:144px;width:312px;height:128px"><div class="top"><div class="icn go"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div><div class="lb">Collection rate<span class="ar">نسبة التحصيل</span></div></div>
+<div class="chip b"><span class="data" data-pbi="kpi_rate_yoy">▼ 0.2 pts</span><i>vs 2024</i></div><div class="val"><div class="num"><span class="data" data-pbi="kpi_rate">75.1%</span></div></div></div><div class="card kpi" style="left:1236px;top:144px;width:312px;height:128px"><div class="top"><div class="icn ro"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div><div class="lb">Never collected <span style="display:inline;color:#A8823F;font-weight:700;font-size:11px;letter-spacing:1px">SAR</span><span class="ar">ما انحصّل</span></div></div>
+<div class="chip b"><span class="data" data-pbi="kpi_gap_yoy">▲ 2.5%</span><i>vs 2024</i></div><div class="val"><div class="num"><span class="data" data-pbi="kpi_gap">4.52M</span></div></div></div><div class="card kpi" style="left:1568px;top:144px;width:312px;height:128px"><div class="top"><div class="icn go"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div><div class="lb">Average bill <span style="display:inline;color:#A8823F;font-weight:700;font-size:11px;letter-spacing:1px">SAR</span><span class="ar">متوسط الفاتورة</span></div></div>
+<div class="chip g"><span class="data" data-pbi="kpi_avgbill_yoy">▲ 1.5%</span><i>vs 2024</i></div><div class="val"><div class="num"><span class="data" data-pbi="kpi_avgbill">605</span></div></div></div><div class="card" style="left:240px;top:296px;width:1000px;height:456px;padding:24px 28px">
+<div class="ct"><div class="icn icn em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div><h3>Share of visits vs share of revenue</h3><span class="ar" style="margin-left:16px">الزيارات مقابل الإيراد</span></div>
+<div class="lg"><span><i style="background:#BFD8CA"></i>Share of visits</span><span><i style="background:#1F6B53"></i>Share of revenue</span><span><i class="dash"></i>fair share = 20%</span></div>
+<div class="hero data" data-pbi="hero_share" style="position:absolute;left:28px;top:112px;width:640px;height:316px">
+<div class="fair" style="left:338px"></div><div class="hr"><div class="hl"><b>Procedure</b><span>avg bill SAR 1,440</span></div><div class="hb">
+<div class="bv" style="width:190px"></div><em class="lv" style="left:198px">20.2%</em>
+<div class="br hi" style="width:451px"></div><em class="lr hi" style="left:461px">48.0%</em></div></div><div class="hr"><div class="hl"><b>Emergency</b><span>avg bill SAR 750</span></div><div class="hb">
+<div class="bv" style="width:187px"></div><em class="lv" style="left:195px">19.9%</em>
+<div class="br" style="width:231px"></div><em class="lr" style="left:241px">24.6%</em></div></div><div class="hr"><div class="hl"><b>Imaging</b><span>avg bill SAR 484</span></div><div class="hb">
+<div class="bv" style="width:187px"></div><em class="lv" style="left:195px">19.9%</em>
+<div class="br" style="width:149px"></div><em class="lr" style="left:159px">15.9%</em></div></div><div class="hr"><div class="hl"><b>Consultation</b><span>avg bill SAR 207</span></div><div class="hb">
+<div class="bv" style="width:188px"></div><em class="lv" style="left:196px">20.0%</em>
+<div class="br" style="width:64px"></div><em class="lr" style="left:74px">6.8%</em></div></div><div class="hr"><div class="hl"><b>Laboratory</b><span>avg bill SAR 138</span></div><div class="hb">
+<div class="bv" style="width:189px"></div><em class="lv" style="left:197px">20.1%</em>
+<div class="br" style="width:43px"></div><em class="lr" style="left:53px">4.6%</em></div></div></div>
+<div class="callout" style="position:absolute;left:700px;top:96px;width:272px;height:332px">
+ <div class="big serif">48<span>%</span></div><div class="ctx">of all revenue comes from <b style="color:#B85C70">Procedures</b>, only 20% of visits.</div>
+ <div class="sep"></div>
+ <div class="big2 serif">×10</div><div class="ctx">a procedure bills <b>SAR 1,440</b> on average; a lab test bills SAR 138.</div></div></div><div class="card" style="left:240px;top:776px;width:1000px;height:272px;padding:22px 28px">
+<div class="ct"><div class="icn icn go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7l10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div><h3>Most things are flat. Two aren’t.</h3><span class="ar" style="margin-left:16px">وين الفرق الحقيقي؟</span></div>
+<div class="cs">Highest ÷ lowest group. Departments, hospitals and diagnoses all sit within 8% of each other.</div>
+<div class="flat"><div class="fc"><div class="fv o">×10.4</div><div class="fb o" style="height:104px"></div><div class="fl">Avg bill by<br>service type</div></div><div class="fc"><div class="fv o">×2.2</div><div class="fb o" style="height:13px"></div><div class="fl">Admissions per<br>bed, by hospital</div></div><div class="fc"><div class="fv">×1.08</div><div class="fb" style="height:6px"></div><div class="fl">Revenue by<br>diagnosis</div></div><div class="fc"><div class="fv">×1.06</div><div class="fb" style="height:6px"></div><div class="fl">Revenue by<br>hospital</div></div><div class="fc"><div class="fv">×1.06</div><div class="fb" style="height:6px"></div><div class="fl">Revenue by<br>department</div></div><div class="fc"><div class="fv">×1.02</div><div class="fb" style="height:6px"></div><div class="fl">Wait time by<br>department</div></div><div class="fc"><div class="fv">×1.00</div><div class="fb" style="height:6px"></div><div class="fl">Collection:<br>insured vs self-pay</div></div></div></div><div class="card" style="left:1264px;top:296px;width:616px;height:360px;padding:24px 28px">
+<div class="ct"><div class="icn icn ro"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div><h3>Where the SAR 4.5M leaks</h3><span class="ar">وين يضيع التحصيل</span></div>
+<div class="cs">Billed minus collected, by service</div>
+<div class="donut data" data-pbi="leak_donut" style="position:absolute;left:28px;top:112px;width:224px;height:224px;background:conic-gradient(#B85C70 0% 47%,#0E4A3A 47% 72%,#5E9C80 72% 88%,#BF9B55 88% 95%,#E3CFA6 95% 100%)"></div>
+<div class="dh" style="position:absolute;left:84px;top:168px;width:112px;height:112px"><b class="serif">47%</b><span>Procedures</span></div>
+<div class="leg" style="position:absolute;left:284px;top:120px;width:304px"><div class="li"><i style="background:#B85C70"></i><span>Procedure</span><b>SAR 2.14M</b><em>47%</em></div><div class="li"><i style="background:#0E4A3A"></i><span>Emergency</span><b>SAR 1.14M</b><em>25%</em></div><div class="li"><i style="background:#5E9C80"></i><span>Imaging</span><b>SAR 0.72M</b><em>16%</em></div><div class="li"><i style="background:#BF9B55"></i><span>Consultation</span><b>SAR 0.31M</b><em>7%</em></div><div class="li"><i style="background:#E3CFA6"></i><span>Laboratory</span><b>SAR 0.21M</b><em>5%</em></div></div></div><div class="card" style="left:1264px;top:680px;width:616px;height:368px;padding:24px 28px">
+<div class="ct"><div class="icn icn em"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Insurance doesn’t speed up payment</h3></div>
+<div class="cs ar" style="text-align:left;margin-left:48px;color:#A8823F;font-weight:700;font-size:14px;direction:rtl;unicode-bidi:plaintext">التأمين ما فرق بالتحصيل</div>
+<div style="position:absolute;left:40px;top:118px;width:156px;height:156px"><svg width="156" height="156" viewBox="0 0 156 156"><circle cx="78" cy="78" r="66" fill="none" stroke="#EDE6DA" stroke-width="14"/>
+<circle cx="78" cy="78" r="66" fill="none" stroke="#0E4A3A" stroke-width="14" stroke-linecap="round" stroke-dasharray="311.8 999" transform="rotate(-90 78 78)"/></svg>
+<div class="rv data" data-pbi="ring_insured">75.2%</div></div><div class="rl" style="left:18px;width:200px"><b>Insured</b><span>15,228 visits</span></div><div style="position:absolute;left:226px;top:118px;width:156px;height:156px"><svg width="156" height="156" viewBox="0 0 156 156"><circle cx="78" cy="78" r="66" fill="none" stroke="#EDE6DA" stroke-width="14"/>
+<circle cx="78" cy="78" r="66" fill="none" stroke="#BF9B55" stroke-width="14" stroke-linecap="round" stroke-dasharray="311.0 999" transform="rotate(-90 78 78)"/></svg>
+<div class="rv data" data-pbi="ring_self">75.0%</div></div><div class="rl" style="left:204px;width:200px"><b>Self-pay</b><span>14,772 visits</span></div>
+<div class="ms" style="left:420px;top:112px"><b class="serif">0</b><span>of 30,000 bills<br>paid in full</span></div>
+<div class="ms" style="left:420px;top:222px"><b class="serif" style="color:#B85C70">1 in 5</b><span>collected<br>under 60%</span></div>
+</div></body></html>
