@@ -51,6 +51,29 @@ A short walkthrough video is available in [`assets/Healthcare_Analytics_Walkthro
 
 In Power Query the sheets are joined into a single visit-level `Visits` table, with added columns for `Year`, `Uncollected_SAR`, wait bands and age groups. A calculated `Date` table supports the trends.
 
+
+## Data cleaning & preparation
+
+Data cleaning and preparation by **Fay Naif**. Each sheet of the workbook was checked before building the model:
+
+| Sheet | Rows | Blank cells | Duplicate IDs |
+| --- | ---: | ---: | ---: |
+| Visits | 30,000 | 0 | 0 |
+| Billing | 30,000 | 0 | 0 |
+| Patients | 8,000 | 0 | 0 |
+| Providers | 120 | 0 | 0 |
+| Facilities | 8 | 0 | 0 |
+| Services | 5 | 0 | 0 |
+
+Every visit has exactly one bill and a known patient, no collected amount is higher than its charge, and no wait time is negative.
+
+**Power Query steps** (full code in [`power-query/queries.pq`](power-query/queries.pq)): load the six sheets through the `FilePath` parameter → join Billing, Patients, Services and Facilities onto Visits (left joins on their IDs) → select the 18 columns → set data types → add calculated columns for year, uncollected amount, wait bands and age groups. A DAX `Date` table supports the trends.
+
+```powerquery
+J1 = Table.ExpandTableColumn(Table.NestedJoin(V, {"Visit_ID"}, B, {"Visit_ID"}, "B", JoinKind.LeftOuter), "B", {"Charge_SAR", "Collected_SAR"}),
+J2 = Table.ExpandTableColumn(Table.NestedJoin(J1, {"Patient_ID"}, Pt, {"Patient_ID"}, "P", JoinKind.LeftOuter), "P", {"Gender", "Age", "City", "Payment_Type"}, {"Gender", "Age", "Patient_City", "Payment_Type"}),
+```
+
 ## Report pages
 
 | Page | Focus |
@@ -120,6 +143,8 @@ Healthcare-Analytics-Dashboard/
 │   └── page-designs/                      # HTML source of the page backgrounds
 ├── dax/
 │   └── DAX-measures.dax
+├── power-query/
+│   └── queries.pq
 ├── data/
 │   └── Healthcare_Analytics_Clean_30000.xlsx
 ├── screenshots/                           # images used in this README
