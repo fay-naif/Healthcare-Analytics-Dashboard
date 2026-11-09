@@ -9,6 +9,8 @@
   <img src="https://img.shields.io/badge/DAX-0b1730?style=for-the-badge&color=0b1730&labelColor=0b1730&logoColor=c9ced8" alt="DAX">
   <img src="https://img.shields.io/badge/Power%20Query-0b1730?style=for-the-badge&color=0b1730&labelColor=0b1730&logoColor=c9ced8" alt="Power Query">
   <img src="https://img.shields.io/badge/Excel-0b1730?style=for-the-badge&color=0b1730&labelColor=0b1730&logoColor=c9ced8&logo=microsoftexcel" alt="Excel">
+  <img src="https://img.shields.io/badge/Python-0b1730?style=for-the-badge&color=0b1730&labelColor=0b1730&logoColor=c9ced8&logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/SQL-0b1730?style=for-the-badge&color=0b1730&labelColor=0b1730&logoColor=c9ced8&logo=sqlite" alt="SQL">
 </p>
 
 <p align="center">
@@ -123,6 +125,24 @@ Bed Load Gap (x) =
 
 Procedures are about 20% of visits but 48% of billed revenue, and admissions per bed range from 6.5 (Buraidah) to 3.0 (Hail).
 
+## Python &amp; SQL
+
+The data checks and the main analysis are also written in code, so they can be re-run outside Power BI:
+
+| File | What it does |
+| --- | --- |
+| [`python/data_cleaning.py`](python/data_cleaning.py) | Checks the six sheets and the links between them, joins them into one visit-level table, adds year, uncollected amount, wait bands and age groups, and prints the headline KPIs |
+| [`python/load_to_sqlite.py`](python/load_to_sqlite.py) | Loads the data into a SQLite database and runs every query in `sql/analysis.sql` |
+| [`sql/analysis.sql`](sql/analysis.sql) | 8 queries with joins: KPIs, revenue share by service, insured vs. self-pay, wait bands, ER seen within 30 minutes, admissions per bed, outcome rates, 2025 vs. 2024 |
+
+```bash
+pip install -r python/requirements.txt
+python python/data_cleaning.py
+python python/load_to_sqlite.py
+```
+
+The results match the figures in the dashboard.
+
 ## Tools
 
 - **Power BI Desktop** — report, semantic model and custom theme (`Emerald Blush`)
@@ -130,6 +150,8 @@ Procedures are about 20% of visits but 48% of billed revenue, and admissions per
 - **Power Query (M)** — joining the six sheets into one model table
 - **Excel** — source workbook
 - **HTML / CSS** — designed page backgrounds used as canvas images
+- **Python (pandas)** — data checks and preparation
+- **SQL (SQLite)** — analysis queries
 
 ## Project structure
 
@@ -145,6 +167,12 @@ Healthcare-Analytics-Dashboard/
 │   └── DAX-measures.dax
 ├── power-query/
 │   └── queries.pq
+├── python/
+│   ├── data_cleaning.py
+│   ├── load_to_sqlite.py
+│   └── requirements.txt
+├── sql/
+│   └── analysis.sql
 ├── data/
 │   └── Healthcare_Analytics_Clean_30000.xlsx
 ├── screenshots/                           # images used in this README

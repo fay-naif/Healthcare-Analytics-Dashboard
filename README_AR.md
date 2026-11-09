@@ -42,6 +42,22 @@
 | غير المحصّل | 4.52 مليون ريال | ▲ 2.5% |
 | متوسط الانتظار | 77.9 دقيقة | ▼ 0.7% |
 
+## Python و SQL
+
+فحوصات البيانات والتحليل الأساسي مكتوبة كمان بالكود، وتقدر تشتغل خارج Power BI:
+
+- `python/data_cleaning.py` — فحص جودة البيانات وتجهيزها
+- `python/load_to_sqlite.py` — تحميل البيانات في قاعدة SQLite وتشغيل استعلامات `sql/analysis.sql`
+- `sql/analysis.sql` — استعلامات التحليل
+
+```bash
+pip install -r python/requirements.txt
+python python/data_cleaning.py
+python python/load_to_sqlite.py
+```
+
+النتائج نفس أرقام الداشبورد.
+
 ## الأدوات
 
 Power BI · DAX · Power Query · Excel
